@@ -1,0 +1,46 @@
+<%= render_super(__FILE__) %>
+<br>
+<% content_for :header_tags do -%>
+  <%= stylesheet_link_tag "workflow_enhancements.css", :plugin => :redmine_workflow_enhancements %>
+<% end -%>
+<%= javascript_include_tag "d3.v3.min.js", :plugin => :redmine_workflow_enhancements %>
+<%= javascript_include_tag "dagre-d3.min.js", :plugin => :redmine_workflow_enhancements %>
+
+
+<% if @trackers %>
+  <svg width="650" height="600"><g transform="translate(20,20)"/></svg>
+  <script type="text/javascript">
+  $(function() {
+    var json = <%= WorkflowEnhancements::Graph.load_data(@roles, @trackers).to_json.html_safe %>;
+
+    var renderer = new dagreD3.Renderer();
+    var oldDrawNodes = renderer.drawNodes();
+    renderer.drawNodes(function(graph, root) {
+      var svgNodes = oldDrawNodes(graph, root);
+      svgNodes.attr("id", function(u) { return "node-" + u; });
+      svgNodes.attr('class', function(u) {
+        var cls = graph.node(u).nodeclass || '';
+        return 'node ' + cls;
+      });
+      return svgNodes;
+    });
+
+    var oldDrawEdgePaths = renderer.drawEdgePaths();
+    renderer.drawEdgePaths(function(graph, root) {
+      var svgEdgePaths = oldDrawEdgePaths(graph, root);
+      svgEdgePaths.attr('class', function(u) {
+        var cls = graph.edge(u).edgeclass || '';
+        return 'edgePath ' + cls;
+      });
+      return svgEdgePaths;
+    });
+
+    var layout = dagreD3.layout().rankDir("LR");
+    layout = renderer.layout(layout).run(dagreD3.json.decode(json.nodes, json.edges), d3.select("svg g"));
+    d3.select("svg")
+      .attr("width", layout.graph().width + 40)
+      .attr("height", layout.graph().height + 40);
+  });
+  </script>
+<% end %>
+

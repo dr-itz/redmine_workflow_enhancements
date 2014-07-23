@@ -1,0 +1,38 @@
+svg {
+  border: 1px solid black;
+  overflow: hidden;
+}
+
+text {
+  font-weight: 300;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serf;
+  font-size: 14px;
+}
+
+.node rect {
+  stroke-width: 2px;
+  stroke: #333;
+  fill: #fff;
+}
+
+.edgeLabel rect {
+  fill: #fff;
+}
+
+.edgePath path {
+  stroke: #333;
+  stroke-width: 1.5px;
+  fill: none;
+}
+
+.transOther path {
+  stroke: #ccc;
+  stroke-width: 1px;
+}
+.transOwn-assignee path {
+  stroke: #a33;
+}
+.transOwn-author path {
+  /*stroke: #3a3;*/
+  stroke-dasharray: 5,5;
+}
