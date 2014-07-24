@@ -12,7 +12,13 @@ module WorkflowEnhancements::Graph
     end
 
     states_array = tracker.issue_statuses.map do |s|
-      { :id => s.id, :value => { :label => s.name } }
+      cls = ''
+      if s.is_default
+        cls = 'state-new'
+      elsif s.is_closed
+        cls = 'state-closed'
+      end
+      { :id => s.id, :value => { :label => s.name, :nodeclass => cls } }
     end
 
     edges_map = {}

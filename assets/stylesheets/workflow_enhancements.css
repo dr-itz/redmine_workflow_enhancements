@@ -10,6 +10,13 @@ text {
   fill: #fff;
 }
 
+.state-new rect {
+  fill: #F2DEDE;
+}
+.state-closed rect {
+  fill: #DFF0D8;
+}
+
 .edgeLabel rect {
   fill: #fff;
 }
