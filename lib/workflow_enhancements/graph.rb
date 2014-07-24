@@ -41,7 +41,7 @@ module WorkflowEnhancements::Graph
     end
     edges_array = []
     edges_map.each_value do |e|
-      cls = 'transOther'
+      cls = roles ? 'transOther' : ''
       if e[:own]
         cls = 'transOwn'
         unless e[:always]

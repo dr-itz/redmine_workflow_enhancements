@@ -1,3 +1,8 @@
+.workflowGraphContainer {
+  clear: both;
+  padding-top: 15px;
+}
+
 text {
   font-weight: 300;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serf;
