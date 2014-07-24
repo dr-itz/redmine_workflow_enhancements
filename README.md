@@ -28,8 +28,15 @@ directory:
 	cd plugins
 	git clone git://github.com/dr-itz/redmine_workflow_enhancements.git
 	```
+ 2. **Run bundler**
 
- 2. **Restart Redmine**
+	Run excatly the same as during Redmine installation. This might be:
+
+	```
+	bundle install --without development test
+	```
+
+ 3. **Restart Redmine**
 
 	The second step is to restart Redmine. How this is done depends on how Redmine is
 	setup. After the restart, configuration of the plugin can begin.
@@ -52,6 +59,19 @@ directory. Again, execute from within the Redmine root directory.
 ## Usage
 
 Go to Administration -> Workflow, select a single workflow and click 'Edit'.
+
+
+## Development and test
+
+To run the tests, an additional Gem is required for code coverage: simplecov. If
+bundler was initially run with `--without developmen test`, run again without
+these arguments to install *with* the development and test gems.
+
+To run the tests:
+
+````
+bundle exec rake redmine:plugins:test NAME=redmine_workflow_enhancements
+````
 
 
 ## License and thanks

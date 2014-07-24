@@ -1,0 +1,100 @@
+---
+# manager: new -> assigned
+WorkflowTransitions_001:
+  id: 1
+  role_id: 1
+  tracker_id: 1
+  old_status_id: 1
+  new_status_id: 2
+  type: WorkflowTransition
+# manager: assigned -> new
+WorkflowTransitions_002:
+  id: 2
+  role_id: 1
+  tracker_id: 1
+  old_status_id: 2
+  new_status_id: 1
+  type: WorkflowTransition
+# manager: assigned -> resolved
+WorkflowTransitions_003:
+  id: 3
+  role_id: 1
+  tracker_id: 1
+  old_status_id: 2
+  new_status_id: 3
+  type: WorkflowTransition
+# manager: resolved -> assigned
+WorkflowTransitions_004:
+  id: 4
+  role_id: 1
+  tracker_id: 1
+  old_status_id: 3
+  new_status_id: 2
+  type: WorkflowTransition
+# manager: resolved -> closed
+WorkflowTransitions_005:
+  id: 5
+  role_id: 1
+  tracker_id: 1
+  old_status_id: 3
+  new_status_id: 5
+  type: WorkflowTransition
+# manager: resolved -> feedback
+WorkflowTransitions_006:
+  id: 6
+  role_id: 1
+  tracker_id: 1
+  old_status_id: 3
+  new_status_id: 4
+  type: WorkflowTransition
+# manager: feedback -> assigned
+WorkflowTransitions_007:
+  id: 7
+  role_id: 1
+  tracker_id: 1
+  old_status_id: 4
+  new_status_id: 2
+  type: WorkflowTransition
+# manager: feedback -> closed
+WorkflowTransitions_008:
+  id: 8
+  role_id: 1
+  tracker_id: 1
+  old_status_id: 4
+  new_status_id: 5
+  type: WorkflowTransition
+# manager: assigned -> rejected
+WorkflowTransitions_009:
+  id: 9
+  role_id: 1
+  tracker_id: 1
+  old_status_id: 2
+  new_status_id: 6
+  type: WorkflowTransition
+# reporter: feedback -> assigned if author
+WorkflowTransitions_010:
+  id: 10
+  role_id: 3
+  tracker_id: 1
+  old_status_id: 4
+  new_status_id: 2
+  author: true
+  type: WorkflowTransition
+# reporter: feedback -> closed if author
+WorkflowTransitions_011:
+  id: 11
+  role_id: 3
+  tracker_id: 1
+  old_status_id: 4
+  new_status_id: 5
+  author: 1
+  type: WorkflowTransition
+# reporter: assigned -> resolved if assignee
+WorkflowTransitions_012:
+  id: 12
+  role_id: 3
+  tracker_id: 1
+  old_status_id: 2
+  new_status_id: 3
+  assignee: 1
+  type: WorkflowTransition
