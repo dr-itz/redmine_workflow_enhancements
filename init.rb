@@ -3,7 +3,7 @@ Redmine::Plugin.register :redmine_workflow_enhancements do
   author 'Daniel Ritz'
   description 'Enhancements for Workflow'
   version '0.0.1'
-  url 'git://github.com/dr-itz/redmine_workflow_enhancements.git'
+  url 'https://github.com/dr-itz/redmine_workflow_enhancements'
   author_url 'https://github.com/dr-itz/'
 
   requires_redmine '2.2.0'
