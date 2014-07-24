@@ -21,13 +21,16 @@ module WorkflowEnhancements::Graph
       own = role_map.include?(t.role_id)
       author = own && t.author
       assignee = own && t.assignee
+      always = own && !author && !assignee
 
       if edges_map.include?(key)
         edges_map[key][:own] ||= own
         edges_map[key][:author] ||= author
         edges_map[key][:assignee] ||= assignee
+        edges_map[key][:always] ||= always
       else
-        edges_map[key] = { :u => t.old_status_id, :v => t.new_status_id, :own => own }
+        edges_map[key] = { :u => t.old_status_id, :v => t.new_status_id,
+           :own => own, :author => author, :assignee => assignee, :always => always }
       end
     end
     edges_array = []
@@ -35,8 +38,10 @@ module WorkflowEnhancements::Graph
       cls = 'transOther'
       if e[:own]
         cls = 'transOwn'
-        cls += ' transOwn-author' if e[:author]
-        cls += ' transOwn-assignee' if e[:assignee]
+        unless e[:always]
+          cls += ' transOwn-author' if e[:author]
+          cls += ' transOwn-assignee' if e[:assignee]
+        end
       end
       edges_array << { :u => e[:u], :v => e[:v], :value => { :edgeclass => cls } }
     end
