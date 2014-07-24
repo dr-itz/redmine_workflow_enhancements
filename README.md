@@ -19,7 +19,8 @@ Requirements:
 
 ## Installation
 
-Installing the plugin requires these steps:
+Installing the plugin requires these steps. From within the Redmine root
+directory:
 
  1. **Get the plugin**
 
@@ -36,7 +37,7 @@ Installing the plugin requires these steps:
 ## Uninstallation
 
 Uninstalling the plugin is easy as well. Basically it means removing the plugin
-directory. Again, execute from withing the Redmine root directory.
+directory. Again, execute from within the Redmine root directory.
 
  1. **Removing the plugin directory**
 
@@ -55,7 +56,7 @@ Go to Administration -> Workflow, select a single workflow and click 'Edit'.
 
 ## License and thanks
 
-This plugin uses a nice helper to provide a @render_super()@ method in the
+This plugin uses a nice helper to provide a `render_super()` method in the
 views, found in a similar plugin by Tristan Harris:
 https://github.com/tristanharris/workflow_viz
 
