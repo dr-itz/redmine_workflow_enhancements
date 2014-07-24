@@ -1,14 +1,17 @@
 <%= render_super(__FILE__) %>
-<br>
-<% content_for :header_tags do -%>
-  <%= stylesheet_link_tag "workflow_enhancements.css", :plugin => :redmine_workflow_enhancements %>
-<% end -%>
-<%= javascript_include_tag "d3.v3.min.js", :plugin => :redmine_workflow_enhancements %>
-<%= javascript_include_tag "dagre-d3.min.js", :plugin => :redmine_workflow_enhancements %>
 
+<% if @trackers && @trackers.length == 1 %>
+  <% content_for :header_tags do -%>
+    <%= stylesheet_link_tag "workflow_enhancements.css", :plugin => :redmine_workflow_enhancements %>
+  <% end -%>
+  <%= javascript_include_tag "d3.v3.min.js", :plugin => :redmine_workflow_enhancements %>
+  <%= javascript_include_tag "dagre-d3.min.js", :plugin => :redmine_workflow_enhancements %>
 
-<% if @trackers %>
-  <svg width="650" height="600"><g transform="translate(20,20)"/></svg>
+  <br><br>
+  <div class="box">
+    <svg id="workflow-vis" width="100%" height="600"><g transform="translate(20,20)"/></svg>
+  </div>
+
   <script type="text/javascript">
   $(function() {
     var json = <%= WorkflowEnhancements::Graph.load_data(@roles, @trackers).to_json.html_safe %>;
@@ -35,10 +38,13 @@
       return svgEdgePaths;
     });
 
-    var layout = dagreD3.layout().rankDir("LR");
-    layout = renderer.layout(layout).run(dagreD3.json.decode(json.nodes, json.edges), d3.select("svg g"));
+    var layout = dagreD3.layout()
+      .edgeSep(12)
+      .nodeSep(40)
+      .rankSep(50)
+      .rankDir("LR");
+    layout = renderer.layout(layout).run(dagreD3.json.decode(json.nodes, json.edges), d3.select("#workflow-vis g"));
     d3.select("svg")
-      .attr("width", layout.graph().width + 40)
       .attr("height", layout.graph().height + 40);
   });
   </script>
