@@ -3,6 +3,12 @@
   padding-top: 15px;
 }
 
+.workflowGraph {
+  background: white;
+  border: 1px solid #E4E4E4;
+  display: inline-block;
+}
+
 text {
   font-weight: 300;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serf;

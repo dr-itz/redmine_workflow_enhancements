@@ -4,8 +4,12 @@
   <% end -%>
   <%= javascript_include_tag "d3.v3.min.js", :plugin => :redmine_workflow_enhancements %>
   <%= javascript_include_tag "dagre-d3.min.js", :plugin => :redmine_workflow_enhancements %>
+  <%= javascript_include_tag "saveSvgAsPng.js", :plugin => :redmine_workflow_enhancements %>
 
   <div class="box">
+    <div class="contextual" style="display:none;" id="graphContextual">
+      <a class="icon icon-save" id="graphSavePng"><%= l(:button_save) %></a>
+    </div>
     <h4>
       <%= l(:label_workflow) %>: <%= trackers.first.name %>
       <% if roles && !roles.empty? %>
@@ -13,7 +17,11 @@
         <%= roles.map(&:name).join(', ') %>
       <% end %>
     </h4>
-    <svg id="workflow-vis" width="100%" height="600"><g transform="translate(20,20)"/></svg>
+    <div class="workflowGraph">
+      <svg id="workflow-vis" width="800" height="600">
+        <g transform="translate(20,20)"/>
+      </svg>
+    </div>
   </div>
 
   <script type="text/javascript">
@@ -49,7 +57,16 @@
       .rankDir("LR");
     layout = renderer.layout(layout).run(dagreD3.json.decode(json.nodes, json.edges), d3.select("#workflow-vis g"));
     d3.select("svg")
+      .attr("width", layout.graph().width + 40)
       .attr("height", layout.graph().height + 40);
+
+    // save as PNG only works in Firefox and Chrome
+    if (/firefox/i.test(navigator.userAgent) || /chrome/i.test(navigator.userAgent)) {
+      $('#graphContextual').show();
+      $('#graphSavePng').click(function() {
+        saveSvgAsPng(document.getElementById("workflow-vis"), "workflow.png", 3);
+      });
+    }
   });
   </script>
 <% end %>
