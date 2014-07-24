@@ -2,7 +2,7 @@ Redmine::Plugin.register :redmine_workflow_enhancements do
   name 'Redmine Workflow Enhancements'
   author 'Daniel Ritz'
   description 'Enhancements for Workflow'
-  version '0.0.1'
+  version '0.1.0'
   url 'https://github.com/dr-itz/redmine_workflow_enhancements'
   author_url 'https://github.com/dr-itz/'
 
