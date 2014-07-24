@@ -10,5 +10,5 @@ Redmine::Plugin.register :redmine_workflow_enhancements do
 end
 
 Rails.configuration.to_prepare do
-  ApplicationController.send(:helper, WorkflowEnhancements::ViewHelper)
+  ApplicationController.send(:helper, WorkflowEnhancements::Patches::ViewHelper)
 end
