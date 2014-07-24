@@ -1,14 +1,19 @@
 module WorkflowEnhancements::Graph
 
 	def self.load_data(roles, trackers)
-    unless trackers && trackers.length == 1
+    tracker = nil
+    if trackers.is_a?(Array)
+      tracker = trackers.length == 1 ? trackers.first : nil
+    else
+      tracker = trackers
+    end
+    unless tracker
       return { :nodes => [], :edges => [] }
     end
-    tracker = trackers.first
 
     role_map = {}
     if roles
-      roles.each {|x| role_map[x.id] = x }
+      Array(roles).each {|x| role_map[x.id] = x }
     end
 
     states_array = tracker.issue_statuses.map do |s|

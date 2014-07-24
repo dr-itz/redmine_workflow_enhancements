@@ -1,5 +1,10 @@
 <%= render_super(__FILE__) %>
 <div class="workflowGraphContainer">
-  <%= render :partial => 'workflow_enhancements/workflow_graph', :locals => {
-      :trackers => @trackers, :roles => @roles} %>
+  <% if @tracker && @role %>
+    <%= render :partial => 'workflow_enhancements/workflow_graph', :locals => {
+        :trackers => @tracker, :roles => @role} %>
+  <% else %>
+    <%= render :partial => 'workflow_enhancements/workflow_graph', :locals => {
+        :trackers => @trackers, :roles => @roles} %>
+  <% end %>
 </div>

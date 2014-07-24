@@ -60,7 +60,7 @@ class GraphTest < ActionView::TestCase
   end
 
   def test_with_tracker_bug_all
-    result = WorkflowEnhancements::Graph.load_data(nil, [@tracker_bug])
+    result = WorkflowEnhancements::Graph.load_data(nil, @tracker_bug)
     assert result.has_key? :nodes
     assert result.has_key? :edges
     assert_equal @bug_states, result[:nodes]
@@ -68,19 +68,19 @@ class GraphTest < ActionView::TestCase
   end
 
   def test_with_tracker_bug_manager
-    result = WorkflowEnhancements::Graph.load_data([@role_manager], [@tracker_bug])
+    result = WorkflowEnhancements::Graph.load_data(@role_manager, @tracker_bug)
     assert_equal @bug_states, result[:nodes]
     assert_equal @bug_transition_manager , result[:edges]
   end
 
   def test_with_tracker_bug_reporter
-    result = WorkflowEnhancements::Graph.load_data([@role_reporter], [@tracker_bug])
+    result = WorkflowEnhancements::Graph.load_data(@role_reporter, @tracker_bug)
     assert_equal @bug_states, result[:nodes]
     assert_equal @bug_transition_reporter , result[:edges]
   end
 
   def test_with_tracker_bug_nonmember
-    result = WorkflowEnhancements::Graph.load_data([@role_nonmember], [@tracker_bug])
+    result = WorkflowEnhancements::Graph.load_data(@role_nonmember, @tracker_bug)
     assert_equal @bug_states, result[:nodes]
     assert_equal @bug_transition_nonmember , result[:edges]
   end
