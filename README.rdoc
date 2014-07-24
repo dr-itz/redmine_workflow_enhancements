@@ -1,3 +1,0 @@
-= redmine_workflow_enhancements
-
-Description goes here

@@ -1,0 +1,24 @@
+Copyright (C) 2014 Daniel Ritz <daniel.ritz@gmx.ch>
+
+This software is licensed under the terms of the GNU General Public License
+(GPL) v2. See COPYING for details.
+
+===============================================================================
+
+This Software contains third party components as follows:
+
+d3.js
+-----
+
+BSD license.
+http://d3js.org/
+
+
+
+dagre-d3
+--------
+
+MIT License.
+https://github.com/cpettitt/dagre-d3
+
+
