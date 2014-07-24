@@ -6,6 +6,13 @@
   <%= javascript_include_tag "dagre-d3.min.js", :plugin => :redmine_workflow_enhancements %>
 
   <div class="box">
+    <h4>
+      <%= l(:label_workflow) %>: <%= trackers.first.name %>
+      <% if roles && !roles.empty? %>
+        - <%= roles.length == 1 ? l(:label_role) : l(:label_role_plural) %>:
+        <%= roles.map(&:name).join(', ') %>
+      <% end %>
+    </h4>
     <svg id="workflow-vis" width="100%" height="600"><g transform="translate(20,20)"/></svg>
   </div>
 
