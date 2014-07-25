@@ -53,6 +53,11 @@ class GraphTest < ActionView::TestCase
     assert_equal({ :nodes => [], :edges => [] }, result)
   end
 
+  def test_empty_data_array
+    result = WorkflowEnhancements::Graph.load_data([], [])
+    assert_equal({ :nodes => [], :edges => [] }, result)
+  end
+
   def test_multiple_trackers
     trackers = Tracker.all
     result = WorkflowEnhancements::Graph.load_data(nil, trackers)
@@ -63,6 +68,12 @@ class GraphTest < ActionView::TestCase
     result = WorkflowEnhancements::Graph.load_data(nil, @tracker_bug)
     assert result.has_key? :nodes
     assert result.has_key? :edges
+    assert_equal @bug_states, result[:nodes]
+    assert_equal @bug_transition_all , result[:edges]
+  end
+
+  def test_with_tracker_bug_all_empty_array
+    result = WorkflowEnhancements::Graph.load_data([], @tracker_bug)
     assert_equal @bug_states, result[:nodes]
     assert_equal @bug_transition_all , result[:edges]
   end

@@ -12,9 +12,7 @@ module WorkflowEnhancements::Graph
     end
 
     role_map = {}
-    if roles
-      Array(roles).each {|x| role_map[x.id] = x }
-    end
+    Array(roles).each {|x| role_map[x.id] = x } if roles
 
     states_array = tracker.issue_statuses.map do |s|
       cls = ''
@@ -46,7 +44,7 @@ module WorkflowEnhancements::Graph
     end
     edges_array = []
     edges_map.each_value do |e|
-      cls = roles ? 'transOther' : ''
+      cls = role_map.empty? ? '' : 'transOther'
       if e[:own]
         cls = 'transOwn'
         unless e[:always]

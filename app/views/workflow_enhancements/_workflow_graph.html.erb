@@ -1,4 +1,8 @@
-<% trackers = Array(trackers); if trackers.length == 1 %>
+<%
+ trackers = Array(trackers)
+ roles = Array(roles)
+%>
+<% if trackers.length == 1 %>
   <% content_for :header_tags do -%>
     <%= stylesheet_link_tag "workflow_enhancements.css", :plugin => :redmine_workflow_enhancements %>
   <% end -%>
@@ -12,7 +16,7 @@
     </div>
     <h4>
       <%= l(:label_workflow) %>: <%= trackers.first.name %>
-      <% roles = Array(roles); if !roles.empty? %>
+      <% unless roles.empty? %>
         - <%= roles.length == 1 ? l(:label_role) : l(:label_role_plural) %>:
         <%= roles.map(&:name).join(', ') %>
       <% end %>
