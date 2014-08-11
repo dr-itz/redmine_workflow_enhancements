@@ -1,4 +1,4 @@
-module WorkflowEnhancements::Patches::ViewHelper
+module WorkflowEnhancementsHelper
 
   def render_super(current_path)
     details = lookup_context.registered_details.inject({}) do |h, n|

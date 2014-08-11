@@ -1,3 +1,7 @@
+Rails.configuration.to_prepare do
+  ApplicationController.send(:helper, :workflow_enhancements)
+end
+
 Redmine::Plugin.register :redmine_workflow_enhancements do
   name 'Redmine Workflow Enhancements'
   author 'Daniel Ritz'
@@ -7,8 +11,4 @@ Redmine::Plugin.register :redmine_workflow_enhancements do
   author_url 'https://github.com/dr-itz/'
 
   requires_redmine '2.2.0'
-end
-
-Rails.configuration.to_prepare do
-  ApplicationController.send(:helper, WorkflowEnhancements::Patches::ViewHelper)
 end
