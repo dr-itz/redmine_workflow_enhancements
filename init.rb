@@ -2,6 +2,8 @@ Rails.configuration.to_prepare do
   ApplicationController.send(:helper, :workflow_enhancements)
 end
 
+require_dependency 'workflow_enhancements/hooks'
+
 Redmine::Plugin.register :redmine_workflow_enhancements do
   name 'Redmine Workflow Enhancements'
   author 'Daniel Ritz'

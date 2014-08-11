@@ -1,0 +1,38 @@
+<% content_for :header_tags do -%>
+  <%= stylesheet_link_tag "workflow_enhancements.css", :plugin => :redmine_workflow_enhancements %>
+<% end -%>
+
+<script type="text/javascript">
+$(function() {
+  $('<span id="workflow-help" class="icon icon-help" style="margin-left:4px;cursor:pointer;"></span>')
+    .insertAfter('#issue_status_id');
+
+  $('#workflow-help').click(function() {
+    var tracker = $('#issue_tracker_id').val();
+    var issue = <%= @issue.id || 0 %>;
+    var url = "<%= workflow_show_graph_path(@project.id, '$tracker', '$issue') %>";
+    url = url.replace('$tracker', tracker).replace('$issue', issue);
+
+    $.ajax({
+      async: true,
+      url: url,
+      success: function(data) {
+        $("#workflow-display").html(data);
+        $("#workflow-dialog").dialog({
+          title: $("#workflow-dialog h4").text(),
+          resizable: false,
+          width: 'auto',
+          height: 'auto',
+          close: function(event, ui) {
+            $(this).dialog('destroy').remove();
+          }
+        });
+      }
+    });
+
+    return false;
+  });
+});
+</script>
+
+<div id="workflow-display" style="position:fixed;top:-1000px;"></div>

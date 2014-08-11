@@ -1,20 +1,20 @@
 <%
  trackers = Array(trackers)
  roles = Array(roles)
+ minimal = false if local_assigns[:minimal].nil?
 %>
 <% if trackers.length == 1 %>
-  <% content_for :header_tags do -%>
-    <%= stylesheet_link_tag "workflow_enhancements.css", :plugin => :redmine_workflow_enhancements %>
-  <% end -%>
   <%= javascript_include_tag "d3.v3.min.js", :plugin => :redmine_workflow_enhancements %>
   <%= javascript_include_tag "dagre-d3.min.js", :plugin => :redmine_workflow_enhancements %>
   <%= javascript_include_tag "saveSvgAsPng.js", :plugin => :redmine_workflow_enhancements %>
 
-  <div class="box">
-    <div class="contextual" style="display:none;" id="graphContextual">
-      <a class="icon icon-save" id="graphSavePng"><%= l(:button_save) %></a>
-    </div>
-    <h4>
+  <div class="<%= minimal ? "" : "box" %>">
+    <% unless minimal %>
+      <div class="contextual" style="display:none;" id="graphContextual">
+        <a class="icon icon-save" id="graphSavePng"><%= l(:button_save) %></a>
+      </div>
+    <% end %>
+    <h4 style="<%= minimal ? "display:none;" : '' %>">
       <%= l(:label_workflow) %>: <%= trackers.first.name %>
       <% unless roles.empty? %>
         - <%= roles.length == 1 ? l(:label_role) : l(:label_role_plural) %>:
@@ -64,13 +64,15 @@
       .attr("width", layout.graph().width + 40)
       .attr("height", layout.graph().height + 40);
 
-    // save as PNG only works in Firefox and Chrome
-    if (/firefox/i.test(navigator.userAgent) || /chrome/i.test(navigator.userAgent)) {
-      $('#graphContextual').show();
-      $('#graphSavePng').click(function() {
-        saveSvgAsPng(document.getElementById("workflow-vis"), "workflow.png", 3);
-      });
-    }
+    <% unless minimal %>
+      // save as PNG only works in Firefox and Chrome
+      if (/firefox/i.test(navigator.userAgent) || /chrome/i.test(navigator.userAgent)) {
+        $('#graphContextual').show();
+        $('#graphSavePng').click(function() {
+          saveSvgAsPng(document.getElementById("workflow-vis"), "workflow.png", 3);
+        });
+      }
+    <% end %>
   });
   </script>
 <% end %>

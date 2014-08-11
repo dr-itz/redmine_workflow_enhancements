@@ -1,5 +1,9 @@
 <%= render_super(__FILE__) %>
 
+<% content_for :header_tags do -%>
+  <%= stylesheet_link_tag "workflow_enhancements.css", :plugin => :redmine_workflow_enhancements %>
+<% end -%>
+
 <div class="workflowGraphContainer">
   <%= render :partial => 'workflow_enhancements/workflow_graph', :locals => {
       :trackers => @tracker, :roles => nil } %>
