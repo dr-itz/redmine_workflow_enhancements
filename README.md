@@ -4,12 +4,16 @@
 
 Add various enhancements to workflow editing. Currently this consists of these:
 
-  * Visualization with dagre-d3
+  * Visualization with dagre-d3:
+
+	* Workflow edit
+	* Tracker edit
+	* Issue edit (behind the little question mark next to "Issue Status")
 
 Planned features:
 
-  * Ability to pre-define association between tracker and issue statues or better
-	overview
+  * Ability to pre-define association between tracker and issue statuses for
+	better overview.
 
 
 Requirements:
@@ -58,7 +62,9 @@ directory. Again, execute from within the Redmine root directory.
 
 ## Usage
 
-Go to Administration -> Workflow, select a single workflow and click 'Edit'.
+* Go to Administration -> Workflow, select a single workflow and click 'Edit'
+* Go to Administration -> Tracker, select a tracker
+* In the issue edit form, click on the "?" next to the issue status
 
 
 ## Development and test
@@ -76,10 +82,10 @@ bundle exec rake redmine:plugins:test NAME=redmine_workflow_enhancements
 
 ## License and thanks
 
-This plugin uses a nice helper to provide a `render_super()` method in the
-views, found in a similar plugin by Tristan Harris:
+This plugin uses a helper to provide a `render_super()` method in the views,
+found in a similar plugin by Tristan Harris:
 https://github.com/tristanharris/workflow_viz
 
-Since this is a Redmine plugin, Redmine is licensed under the GPLv2 and the GPL
-is very clear about derived work and such, this plugin is licensed under the
-same license.
+Since this is a Redmine plugin, Redmine is licensed under the GPLv2 and the
+GPLv2 is very clear about derived work and such, this plugin is licensed under
+the same license.
