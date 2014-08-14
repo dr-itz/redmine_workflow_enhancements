@@ -8,14 +8,9 @@ $(function() {
     .insertAfter('#issue_status_id');
 
   $('#workflow-help').click(function() {
-    var tracker = $('#issue_tracker_id').val();
-    var issue = <%= @issue.id || 0 %>;
-    var url = "<%= workflow_show_graph_path(@project.id, '$tracker', '$issue') %>";
-    url = url.replace('$tracker', tracker).replace('$issue', issue);
-
     $.ajax({
       async: true,
-      url: url,
+      url: "<%= workflow_show_graph_path(@project.id, @issue.tracker.id, @issue.id || 0) %>",
       success: function(data) {
         $("#workflow-display").html(data);
         $("#workflow-dialog").dialog({
