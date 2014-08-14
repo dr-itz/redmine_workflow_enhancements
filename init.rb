@@ -1,5 +1,6 @@
 Rails.configuration.to_prepare do
-  ApplicationController.send(:helper, :workflow_enhancements)
+  WorkflowsController.helper :workflow_enhancements
+  TrackersController.helper :workflow_enhancements
 end
 
 require_dependency 'workflow_enhancements/hooks'
