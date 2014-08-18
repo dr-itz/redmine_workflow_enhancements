@@ -1,6 +1,6 @@
 <%= render_super(__FILE__) %>
 
-<% if @tracker && @role || @trackers && @role %>
+<% if @tracker && @role || @trackers && @roles %>
   <% content_for :header_tags do -%>
     <%= stylesheet_link_tag "workflow_enhancements.css", :plugin => :redmine_workflow_enhancements %>
   <% end -%>
