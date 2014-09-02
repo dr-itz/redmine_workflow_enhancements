@@ -82,10 +82,9 @@ bundle exec rake redmine:plugins:test NAME=redmine_workflow_enhancements
 
 ## License and thanks
 
-This plugin uses a helper to provide a `render_super()` method in the views,
-found in a similar plugin by Tristan Harris:
-https://github.com/tristanharris/workflow_viz
-
 Since this is a Redmine plugin, Redmine is licensed under the GPLv2 and the
 GPLv2 is very clear about derived work and such, this plugin is licensed under
 the same license.
+
+This plugin borrows an extension to ActiveView that provides a `render :super`
+from ActiveScaffold, https://github.com/activescaffold/active_scaffold

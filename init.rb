@@ -1,9 +1,5 @@
-Rails.configuration.to_prepare do
-  WorkflowsController.helper :workflow_enhancements
-  TrackersController.helper :workflow_enhancements
-end
-
 require_dependency 'workflow_enhancements/hooks'
+require_dependency 'workflow_enhancements/patches/action_view_rendering'
 
 Redmine::Plugin.register :redmine_workflow_enhancements do
   name 'Redmine Workflow Enhancements'
