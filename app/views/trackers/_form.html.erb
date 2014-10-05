@@ -1,0 +1,15 @@
+<%= render :super %>
+
+<div class="splitcontentright">
+  <fieldset class="box" id="predef-statuses">
+    <legend><%= l(:label_issue_status_plural) %></legend>
+
+    <% IssueStatus.sorted.each do |status| %>
+      <label>
+        <%= check_box_tag "tracker[predef_issue_status_ids][]", status.id,
+            @tracker.predef_issue_statuses.include?(status), :id => nil %>
+        <%= status.name %>
+      </label>
+    <% end %>
+  </fieldset>
+</div>

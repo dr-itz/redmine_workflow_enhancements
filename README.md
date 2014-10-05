@@ -10,8 +10,6 @@ Add various enhancements to workflow editing. Currently this consists of these:
 	* Tracker edit
 	* Issue edit (behind the little question mark next to "Issue Status")
 
-Planned features:
-
   * Ability to pre-define association between tracker and issue statuses for
 	better overview.
 
@@ -40,23 +38,34 @@ directory:
 	bundle install --without development test
 	```
 
- 3. **Restart Redmine**
+ 3. **Run plugin migrations**
+
+	```
+	bundle exec rake redmine:plugins NAME=redmine_workflow_enhancements RAILS_ENV=production
+	```
+
+ 4. **Restart Redmine**
 
 	The second step is to restart Redmine. How this is done depends on how Redmine is
 	setup. After the restart, configuration of the plugin can begin.
 
 ## Uninstallation
 
-Uninstalling the plugin is easy as well. Basically it means removing the plugin
-directory. Again, execute from within the Redmine root directory.
+Uninstalling the plugin is easy as well:
 
- 1. **Removing the plugin directory**
+ 1. **Reverse plugin migrations**
+
+	```
+	bundle exec rake redmine:plugins NAME=redmine_workflow_enhancements  RAILS_ENV=production VERSION=0
+	```
+
+ 2. **Removing the plugin directory**
 
 	```
 	rm -r plugins/redmine_workflow_enhancements
 	```
 
- 2. **Restart Redmine**
+ 3. **Restart Redmine**
 
 	The second step is to restart Redmine. Once restarted, the plugin will be gone.
 

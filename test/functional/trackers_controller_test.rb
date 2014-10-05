@@ -9,6 +9,8 @@ class TrackersControllerTest < ActionController::TestCase
   end
 
   def test_get_edit
+    Tracker.find(1).predef_issue_status_ids = [1, 3]
+
     get :edit, :id => 1
     assert_response :success
     assert_template 'edit'
@@ -20,5 +22,37 @@ class TrackersControllerTest < ActionController::TestCase
 
     # test if workflow visualization is there
     assert_select 'svg#workflow-vis', true
+
+    # test if the issue status selectino is there
+    assert_select '#predef-statuses', true
+
+    assert_tag :input, :attributes => { :name => 'tracker[predef_issue_status_ids][]',
+                                        :value => '1',
+                                        :checked => 'checked' }
+    assert_tag :input, :attributes => { :name => 'tracker[predef_issue_status_ids][]',
+                                        :value => '3',
+                                        :checked => 'checked' }
+  end
+
+  def test_create_with_predef_statuses
+    assert_difference 'Tracker.count' do
+      post :create, :tracker => {
+        :name => 'New tracker',
+        :predef_issue_status_ids => ['1', '2', '3', '5'] }
+    end
+    assert_redirected_to :action => 'index'
+
+    tracker = Tracker.order('id DESC').first
+    assert_equal 'New tracker', tracker.name
+    assert_equal 0, tracker.workflow_rules.count
+    assert_equal 4, tracker.predef_issue_statuses.count
+  end
+
+  def test_updat_with_predef_statusese
+    put :update, :id => 1, :tracker => {
+      :name => 'Renamed',
+      :predef_issue_status_ids => ['3', '5'] }
+    assert_redirected_to :action => 'index'
+    assert_equal [3, 5], Tracker.find(1).predef_issue_status_ids.sort
   end
 end
