@@ -60,9 +60,16 @@
       .rankSep(50)
       .rankDir("LR");
     layout = renderer.layout(layout).run(dagreD3.json.decode(json.nodes, json.edges), d3.select("#workflow-vis g"));
-    d3.select("svg")
-      .attr("width", layout.graph().width + 40)
-      .attr("height", layout.graph().height + 40);
+
+    var gw = layout.graph().width;
+    var gh = layout.graph().height;
+    var w = Math.min($(window).width() * 0.8, gw);
+    var h = Math.min($(window).height() * 0.8, gh);
+    var s = Math.min(w / gw, h / gh);
+    d3.select("svg").attr("width", w + 40).attr("height", h + 40);
+    if (s < 1) {
+      d3.select("svg").attr("transform", "scale(" + s + ")");
+    }
 
     <% unless minimal %>
       // save as PNG only works in Firefox and Chrome
