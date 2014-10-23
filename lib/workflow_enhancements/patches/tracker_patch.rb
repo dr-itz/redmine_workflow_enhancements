@@ -15,7 +15,7 @@ class Tracker
       "SELECT DISTINCT old_status_id, new_status_id
        FROM #{WorkflowTransition.table_name}
        WHERE tracker_id = #{id} AND type = 'WorkflowTransition'").flatten
-    ids << TrackerStatus.connection.select_rows(
+    ids.concat TrackerStatus.connection.select_rows(
       "SELECT issue_status_id
        FROM #{TrackerStatus.table_name}
        WHERE tracker_id = #{id}")
