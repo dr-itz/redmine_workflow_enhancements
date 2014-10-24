@@ -1,3 +1,7 @@
+#predef-statuses label {
+  white-space: nowrap;
+}
+
 .workflowGraphContainer {
   clear: both;
   padding-top: 15px;
