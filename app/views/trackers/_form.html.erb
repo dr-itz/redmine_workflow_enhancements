@@ -1,5 +1,9 @@
 <%= render :super %>
 
+<% content_for :header_tags do -%>
+  <%= stylesheet_link_tag "workflow_enhancements.css", :plugin => :redmine_workflow_enhancements %>
+<% end -%>
+
 <div class="splitcontentright">
   <fieldset class="box" id="predef-statuses">
     <legend><%= l(:label_issue_status_plural) %></legend>
