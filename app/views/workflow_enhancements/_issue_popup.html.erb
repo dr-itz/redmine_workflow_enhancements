@@ -12,6 +12,7 @@ $(function() {
       async: true,
       url: "<%= workflow_show_graph_path(@project.id, @issue.tracker.id, @issue.id || 0) %>",
       success: function(data) {
+        $("#workflow-dialog").dialog('close');
         $("#workflow-display").html(data);
         $("#workflow-dialog").dialog({
           title: $("#workflow-dialog h4").text(),
