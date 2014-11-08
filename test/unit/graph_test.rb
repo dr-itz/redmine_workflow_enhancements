@@ -1,7 +1,17 @@
 require File.expand_path('../../test_helper', __FILE__)
 
 class GraphTest < ActionView::TestCase
-  fixtures :roles, :trackers, :issue_statuses, :workflows
+  fixtures :projects,
+           :users,
+           :roles,
+           :members,
+           :member_roles,
+           :issues,
+           :issue_statuses,
+           :trackers,
+           :projects_trackers,
+           :enabled_modules,
+           :workflows
 
   include ActionView::TestCase::Behavior
 
@@ -10,10 +20,19 @@ class GraphTest < ActionView::TestCase
     @role_manager   = Role.find(1)
     @role_reporter  = Role.find(3)
     @role_nonmember = Role.find(4)
+    @issue = Issue.find(1)
 
     @bug_states = [
       { :id => 1, :value => { :label => "New",      :nodeclass => "state-new" }},
       { :id => 2, :value => { :label => "Assigned", :nodeclass => "" }},
+      { :id => 3, :value => { :label => "Resolved", :nodeclass => "" }},
+      { :id => 4, :value => { :label => "Feedback", :nodeclass => "" }},
+      { :id => 5, :value => { :label => "Closed",   :nodeclass => "state-closed" }},
+      { :id => 6, :value => { :label => "Rejected", :nodeclass => "state-closed" }}]
+
+    @bug_states_issue = [
+      { :id => 1, :value => { :label => "New",      :nodeclass => "state-new state-current" }},
+      { :id => 2, :value => { :label => "Assigned", :nodeclass => " state-possible" }},
       { :id => 3, :value => { :label => "Resolved", :nodeclass => "" }},
       { :id => 4, :value => { :label => "Feedback", :nodeclass => "" }},
       { :id => 5, :value => { :label => "Closed",   :nodeclass => "state-closed" }},
@@ -69,30 +88,39 @@ class GraphTest < ActionView::TestCase
     assert result.has_key? :nodes
     assert result.has_key? :edges
     assert_equal @bug_states, result[:nodes]
-    assert_equal @bug_transition_all , result[:edges]
+    assert_equal @bug_transition_all, result[:edges]
   end
 
   def test_with_tracker_bug_all_empty_array
     result = WorkflowEnhancements::Graph.load_data([], @tracker_bug)
     assert_equal @bug_states, result[:nodes]
-    assert_equal @bug_transition_all , result[:edges]
+    assert_equal @bug_transition_all, result[:edges]
   end
 
   def test_with_tracker_bug_manager
     result = WorkflowEnhancements::Graph.load_data(@role_manager, @tracker_bug)
     assert_equal @bug_states, result[:nodes]
-    assert_equal @bug_transition_manager , result[:edges]
+    assert_equal @bug_transition_manager, result[:edges]
+  end
+
+  def test_with_tracker_bug_manager_issue
+    User.current = User.find(2) # manager
+
+    result = WorkflowEnhancements::Graph.load_data(@role_manager, @tracker_bug, @issue)
+    Rails.logger.warn result[:nodes].inspect
+    assert_equal @bug_states_issue, result[:nodes]
+    assert_equal @bug_transition_manager, result[:edges]
   end
 
   def test_with_tracker_bug_reporter
     result = WorkflowEnhancements::Graph.load_data(@role_reporter, @tracker_bug)
     assert_equal @bug_states, result[:nodes]
-    assert_equal @bug_transition_reporter , result[:edges]
+    assert_equal @bug_transition_reporter, result[:edges]
   end
 
   def test_with_tracker_bug_nonmember
     result = WorkflowEnhancements::Graph.load_data(@role_nonmember, @tracker_bug)
     assert_equal @bug_states, result[:nodes]
-    assert_equal @bug_transition_nonmember , result[:edges]
+    assert_equal @bug_transition_nonmember, result[:edges]
   end
 end

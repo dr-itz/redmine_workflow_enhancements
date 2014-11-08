@@ -21,7 +21,7 @@ class WorkflowEnhancementsControllerTest < ActionController::TestCase
   end
 
   def test_show_as_manager_newissue
-    get :show, :project_id => 1, :tracker_id => 1, :issue_id => 0
+    get :show, :project_id => 1, :tracker_id => 1, :issue_id => 1
     assert_response :success
     assert_template 'show'
 

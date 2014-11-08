@@ -1,6 +1,6 @@
 module WorkflowEnhancements::Graph
 
-	def self.load_data(roles, trackers)
+	def self.load_data(roles, trackers, issue=nil)
     tracker = nil
     if trackers.is_a?(Array)
       tracker = trackers.length == 1 ? trackers.first : nil
@@ -11,15 +11,27 @@ module WorkflowEnhancements::Graph
       return { :nodes => [], :edges => [] }
     end
 
+    current_status = nil
+    possible_statuses = {}
+    if issue
+      current_status = issue.status_id
+      issue.new_statuses_allowed_to().each {|x| possible_statuses[x.id] = true }
+    end
+
     role_map = {}
     Array(roles).each {|x| role_map[x.id] = x } if roles
 
-    states_array = tracker.issue_statuses.map do |s|
+    statuses_array = tracker.issue_statuses.map do |s|
       cls = ''
       if s.is_default
         cls = 'state-new'
       elsif s.is_closed
         cls = 'state-closed'
+      end
+      if s.id == current_status
+        cls += ' state-current'
+      elsif possible_statuses.include?(s.id)
+        cls += ' state-possible'
       end
       { :id => s.id, :value => { :label => s.name, :nodeclass => cls } }
     end
@@ -55,6 +67,6 @@ module WorkflowEnhancements::Graph
       edges_array << { :u => e[:u], :v => e[:v], :value => { :edgeclass => cls } }
     end
 
-    { :nodes => states_array, :edges => edges_array }
+    { :nodes => statuses_array, :edges => edges_array }
 	end
 end

@@ -32,6 +32,18 @@ text {
   fill: #DFF0D8;
 }
 
+.state-current rect {
+  stroke-width: 4px;
+  stroke: gray;
+}
+.state-current text {
+  font-style: italic;
+}
+.state-possible rect {
+  stroke-width: 4px;
+  stroke: #628DB6;
+}
+
 .edgeLabel rect {
   fill: #fff;
 }
