@@ -23,7 +23,7 @@ module WorkflowEnhancements::Graph
 
     statuses_array = tracker.issue_statuses.map do |s|
       cls = ''
-      if s.is_default
+      if is_default_status(tracker, s)
         cls = 'state-new'
       elsif s.is_closed
         cls = 'state-closed'
@@ -69,4 +69,14 @@ module WorkflowEnhancements::Graph
 
     { :nodes => statuses_array, :edges => edges_array }
 	end
+
+  private
+
+  def self.is_default_status(tracker, status)
+    if Redmine::VERSION::MAJOR == 3
+      tracker.default_status == status
+    else
+      status.is_default
+    end
+  end
 end
