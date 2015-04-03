@@ -26,18 +26,15 @@ class TrackersControllerTest < ActionController::TestCase
     # test if the issue status selectino is there
     assert_select '#predef-statuses', true
 
-    assert_tag :input, :attributes => { :name => 'tracker[predef_issue_status_ids][]',
-                                        :value => '1',
-                                        :checked => 'checked' }
-    assert_tag :input, :attributes => { :name => 'tracker[predef_issue_status_ids][]',
-                                        :value => '3',
-                                        :checked => 'checked' }
+    assert_select 'input[name=?][value="1"][checked=checked]', 'tracker[predef_issue_status_ids][]'
+    assert_select 'input[name=?][value="3"][checked=checked]', 'tracker[predef_issue_status_ids][]'
   end
 
   def test_create_with_predef_statuses
     assert_difference 'Tracker.count' do
       post :create, :tracker => {
         :name => 'New tracker',
+        :default_status_id => 1,
         :predef_issue_status_ids => ['1', '2', '3', '5'] }
     end
     assert_redirected_to :action => 'index'

@@ -20,7 +20,7 @@ class Tracker
        FROM #{TrackerStatus.table_name}
        WHERE tracker_id = #{id}")
 
-    ids = ids.uniq
+    ids = ids.flatten.uniq
     @issue_statuses = IssueStatus.where(:id => ids).all.sort
   end
 

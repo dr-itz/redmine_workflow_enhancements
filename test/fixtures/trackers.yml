@@ -4,9 +4,11 @@ trackers_001:
   name: Bug
   id: 1
   is_in_chlog: true
+  default_status_id: 1
   position: 1
 trackers_002:
   name: Feature request
   id: 2
   is_in_chlog: true
+  default_status_id: 1
   position: 2

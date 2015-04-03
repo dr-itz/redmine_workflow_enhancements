@@ -10,7 +10,6 @@ users_004:
   hashed_password: 9e4dd7eeb172c12a0691a6d9d3a269f7e9fe671b
   updated_on: 2006-07-19 19:34:07 +02:00
   admin: false
-  mail: rhill@somenet.foo
   lastname: Hill
   firstname: Robert
   id: 4
@@ -28,7 +27,6 @@ users_001:
   hashed_password: b5b6ff9543bf1387374cdfa27a54c96d236a7150
   updated_on: 2006-07-19 22:57:52 +02:00
   admin: true
-  mail: admin@somenet.foo
   lastname: Admin
   firstname: Redmine
   id: 1
@@ -46,7 +44,6 @@ users_002:
   hashed_password: bfbe06043353a677d0215b26a5800d128d5413bc
   updated_on: 2006-07-19 22:42:15 +02:00
   admin: false
-  mail: jsmith@somenet.foo
   lastname: Smith
   firstname: John
   id: 2
@@ -64,7 +61,6 @@ users_003:
   hashed_password: 8f659c8d7c072f189374edacfa90d6abbc26d8ed
   updated_on: 2006-07-19 19:33:19 +02:00
   admin: false
-  mail: dlopper@somenet.foo
   lastname: Lopper
   firstname: Dave
   id: 3
@@ -82,7 +78,6 @@ users_005:
   hashed_password: 1
   updated_on: 2006-07-19 19:33:19 +02:00
   admin: false
-  mail: dlopper2@somenet.foo
   lastname: Lopper2
   firstname: Dave2
   auth_source_id: 
@@ -98,7 +93,6 @@ users_006:
   hashed_password: 1
   updated_on: 2006-07-19 19:33:19 +02:00
   admin: false
-  mail: ''
   lastname: Anonymous
   firstname: ''
   auth_source_id: 
@@ -117,7 +111,6 @@ users_007:
   hashed_password: 8f659c8d7c072f189374edacfa90d6abbc26d8ed
   updated_on: 2006-07-19 19:33:19 +02:00
   admin: false
-  mail: someone@foo.bar
   lastname: One
   firstname: Some
   auth_source_id: 
@@ -135,7 +128,6 @@ users_008:
   hashed_password: 8f659c8d7c072f189374edacfa90d6abbc26d8ed
   updated_on: 2006-07-19 19:33:19 +02:00
   admin: false
-  mail: miscuser8@foo.bar
   lastname: Misc
   firstname: User
   auth_source_id: 
@@ -151,7 +143,6 @@ users_009:
   hashed_password: 1
   updated_on: 2006-07-19 19:33:19 +02:00
   admin: false
-  mail: miscuser9@foo.bar
   lastname: Misc
   firstname: User
   auth_source_id: 
