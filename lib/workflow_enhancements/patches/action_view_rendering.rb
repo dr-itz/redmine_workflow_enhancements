@@ -18,9 +18,8 @@ module ActionView
   end
 end
 
-# wrap the action rendering for ActiveScaffold views
-module ActionView::Helpers #:nodoc:
-  module RenderingHelper
+module ActionView
+  class Base
     #
     # Adds rendering option.
     #
