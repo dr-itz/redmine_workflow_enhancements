@@ -1,7 +1,5 @@
 # Redmine Workflow Enhancements
 
-**Warning: this is only lightly tested**
-
 Add various enhancements to workflow editing. Currently this consists of these:
 
   * Visualization with dagre-d3:
@@ -74,6 +72,66 @@ Uninstalling the plugin is easy as well:
 * Go to Administration -> Workflow, select a single workflow and click 'Edit'
 * Go to Administration -> Tracker, select a tracker
 * In the issue edit form, click on the "?" next to the issue status
+
+### What is displayed
+
+The generated graph always includes the full workflow of a tracker. To
+differentiate things:
+
+**Transitions:**
+
+  * Black
+
+	The transition is possible with the current roles
+
+  * Grey
+
+	The transition is not possible by the current role
+
+  * Dashed line
+
+	The transition is only possible when the user is the author of the issue
+
+  * Red line
+
+	The transition is only possible when the user is the assignee of the issue
+
+
+**Statuses:**
+
+  * Green background
+
+	The issue is closed in this state
+
+  * Red background
+
+	This is the default status a new issues is created with (which is
+	configurable in newer versions of Redmine, "New" in older versions)
+
+  * Grey border
+
+	In issue edit form, this is the current selected status
+
+  * Blue border
+
+	In issue edit form, these are the next possible statuses in the workflow
+
+
+### How the association between Tracker and Statuses works
+
+The idea is to control what's showed in "Administration" -> "Workflow" ->
+"Status transitions" -> "Edit". With a lot of different statuses and creating a
+new tracker, things get messy. The default is to only show statuses that are
+included in the workflow ("Only display statuses that are used by this tracker"
+checked). With a new tracker there are none. Unchecking said checkbox displays
+all statuses which makes it hard to find the relevant ones. It also involves a
+lot of scrolling on small screens.
+
+The plugin solves this with the pre-defined association in the tracker. It
+changes the behavior when "Only display statuses that are used by this tracker"
+is checked. It will display all statuses involved in the actual workflow (normal
+behavior) but also includes all the pre-defined ones. The behavior with that
+checkbox unchecked is unchanged, it will display all the statuses.
 
 
 ## Development and test
