@@ -11,4 +11,6 @@ Redmine::Plugin.register :redmine_workflow_enhancements do
   author_url 'https://github.com/dr-itz/'
 
   requires_redmine '2.2.0'
+
+  permission :workflow_graph_view, :workflow_enhancements => :show
 end
