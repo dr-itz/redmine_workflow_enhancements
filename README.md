@@ -47,7 +47,7 @@ directory:
 	The second step is to restart Redmine. How this is done depends on how Redmine is
 	setup. After the restart, configuration of the plugin can begin.
 
-## Uninstallation
+## Uninstalling
 
 Uninstalling the plugin is easy as well:
 
@@ -71,6 +71,11 @@ Uninstalling the plugin is easy as well:
 
 * Go to Administration -> Workflow, select a single workflow and click 'Edit'
 * Go to Administration -> Tracker, select a tracker
+* For each role that should be able to display the workflow graph in the issue form:
+
+	* Go to Administration -> Roles and permissions, select the desired role
+	* Check "View workflow graph" in the category "Issue Tracking"
+
 * In the issue edit form, click on the "?" next to the issue status
 
 ### What is displayed
