@@ -12,5 +12,7 @@ Redmine::Plugin.register :redmine_workflow_enhancements do
 
   requires_redmine '2.2.0'
 
-  permission :workflow_graph_view, :workflow_enhancements => :show
+  project_module :issue_tracking do
+    permission :workflow_graph_view, :workflow_enhancements => :show
+  end
 end
