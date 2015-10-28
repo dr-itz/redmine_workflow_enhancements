@@ -25,8 +25,12 @@ text {
   fill: #fff;
 }
 
-.state-new rect {
+.state-new rect,
+.state-new-possible rect {
   fill: #F2DEDE;
+}
+.state-new text {
+  font-weight: bold;
 }
 .state-closed rect {
   fill: #DFF0D8;

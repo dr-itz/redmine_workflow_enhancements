@@ -21,37 +21,27 @@ module WorkflowEnhancements::Graph
     role_map = {}
     Array(roles).each {|x| role_map[x.id] = x } if roles
 
-    statuses_array = tracker.issue_statuses.map do |s|
-      cls = ''
-      if is_default_status(tracker, s)
-        cls = 'state-new'
-      elsif s.is_closed
-        cls = 'state-closed'
-      end
-      if s.id == current_status
-        cls += ' state-current'
-      elsif possible_statuses.include?(s.id)
-        cls += ' state-possible'
-      end
-      { :id => s.id, :value => { :label => s.name, :nodeclass => cls } }
-    end
-
+    new_issue_status_map = {}
     edges_map = {}
     WorkflowTransition.where(:tracker_id => tracker).each do |t|
-      key = t.old_status_id.to_s + '-' + t.new_status_id.to_s
-      own = role_map.include?(t.role_id)
-      author = own && t.author
-      assignee = own && t.assignee
-      always = own && !author && !assignee
+      if t.old_status_id != 0
+        key = t.old_status_id.to_s + '-' + t.new_status_id.to_s
+        own = role_map.include?(t.role_id)
+        author = own && t.author
+        assignee = own && t.assignee
+        always = own && !author && !assignee
 
-      if edges_map.include?(key)
-        edges_map[key][:own] ||= own
-        edges_map[key][:author] ||= author
-        edges_map[key][:assignee] ||= assignee
-        edges_map[key][:always] ||= always
+        if edges_map.include?(key)
+          edges_map[key][:own] ||= own
+          edges_map[key][:author] ||= author
+          edges_map[key][:assignee] ||= assignee
+          edges_map[key][:always] ||= always
+        else
+          edges_map[key] = { :u => t.old_status_id, :v => t.new_status_id,
+             :own => own, :author => author, :assignee => assignee, :always => always }
+        end
       else
-        edges_map[key] = { :u => t.old_status_id, :v => t.new_status_id,
-           :own => own, :author => author, :assignee => assignee, :always => always }
+        new_issue_status_map[t.new_status_id] = 1
       end
     end
     edges_array = []
@@ -65,6 +55,23 @@ module WorkflowEnhancements::Graph
         end
       end
       edges_array << { :u => e[:u], :v => e[:v], :value => { :edgeclass => cls } }
+    end
+
+    statuses_array = tracker.issue_statuses.map do |s|
+      cls = ''
+      if is_default_status(tracker, s)
+        cls = 'state-new'
+      elsif new_issue_status_map.include?(s.id)
+        cls = 'state-new-possible'
+      elsif s.is_closed
+        cls = 'state-closed'
+      end
+      if s.id == current_status
+        cls += ' state-current'
+      elsif possible_statuses.include?(s.id)
+        cls += ' state-possible'
+      end
+      { :id => s.id, :value => { :label => s.name, :nodeclass => cls } }
     end
 
     { :nodes => statuses_array, :edges => edges_array }

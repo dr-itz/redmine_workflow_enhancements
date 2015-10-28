@@ -110,8 +110,18 @@ differentiate things:
 
   * Red background
 
-	This is the default status a new issues is created with (which is
-	configurable in newer versions of Redmine, "New" in older versions)
+	This is a status a new issues is can have. The default status for a new
+	issues is displayed with bold text.
+
+	Notes:
+
+	  * The default issue status for a tracker is configurable since Redmine
+		3.0. Older versions of Redmine always use "New".
+
+	  * The possible statuses for a new issue is configurable since Redmine 3.2.
+		Older versions of Redmine allow the default status and all directly
+		reachable statuses. The highlighting only shows the new Redmine 3.2
+		configuration.
 
   * Grey border
 

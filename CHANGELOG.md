@@ -1,6 +1,8 @@
 v0.5.0
+ * Compatible with Redmine 3.2
  * Add permission to control whether a role can see the workflow graph (Victor Campos)
  * Fix interaction with gem "haml"
+ * Show all possible initial states a new issue can have, default is highlighted
 
 v0.4.0
  * Fixes for Redmine 3.x
