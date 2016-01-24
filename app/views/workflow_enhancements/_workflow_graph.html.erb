@@ -23,8 +23,8 @@
       <% end %>
     </h4>
     <div class="workflowGraph">
-      <svg id="workflow-vis" width="800" height="600">
-        <g transform="translate(20,20)"/>
+      <svg id="workflow-vis">
+        <g transform="translate(2,2)"/>
       </svg>
     </div>
   </div>
@@ -62,15 +62,35 @@
       .rankDir("LR");
     layout = renderer.layout(layout).run(dagreD3.json.decode(json.nodes, json.edges), d3.select("#workflow-vis g"));
 
-    var gw = layout.graph().width;
-    var gh = layout.graph().height;
-    var w = Math.min($(window).width() * 0.8, gw);
-    var h = Math.min($(window).height() * 0.8, gh);
-    var s = Math.min(w / gw, h / gh);
-    d3.select("svg").attr("width", w + 40).attr("height", h + 40);
-    if (s < 1) {
-      d3.select("svg").attr("transform", "scale(" + s + ")");
+    var cw = $('div#content').width();
+    var dw = $('.workflowGraph').width();
+    var t = cw >= 900 ? 20 : 5;
+    var gw = layout.graph().width + 2*t
+    var gh = layout.graph().height + 2*t
+    var w = Math.min(cw - 20, gw);
+    if (dw < cw && dw > gw) {
+      w = dw;
     }
+    var h = Math.min($(window).height(), gh);
+    var sw = w / gw;
+    var sh = h / gh;
+    var s = 1;
+    if (sw < 1 || sh < 1) {
+      if (sw < sh) {
+        s = sw;
+        h = w * gh / gw;
+      } else {
+        s = sh;
+        w = h * gw / gh;
+      }
+    }
+
+    $('#workflow-vis').attr('width', w).attr('height', h)
+    var transform = 'translate(' + t + ',' + t + ')';
+    if (s < 1) {
+      transform += 'scale(' + s + ')';
+    }
+    d3.select("#workflow-vis g").attr("transform", transform);
 
     <% unless minimal %>
       // save as PNG only works in Firefox and Chrome
@@ -84,5 +104,4 @@
   });
   </script>
 <% end %>
-
 
